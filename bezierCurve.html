@@ -1,0 +1,485 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+	margin:0px;
+	border-top: 1px solid rgba(213,23,34,0);
+}
+div{
+	margin:0px auto;
+}
+canvas{
+	display: block;
+	margin: 8px auto 0px;
+	border: 1px solid rgba(214, 216, 215, 0.14);
+	background: rgba(231, 231, 231, 0.22);
+}
+.point{
+	border:3px solid rgba(36, 139, 64, 0);
+	border-radius:50%;
+	position:absolute;
+	cursor: pointer;
+	z-index: 10;
+}
+.point span{
+	display: block;
+	width: 13px;
+	height: 13px;
+	border-radius: 50%;
+}
+#box{
+	width:418px;
+	height:500px;
+	margin-top:24px;
+	position:relative;
+	border-top:1px solid rgba(0, 0, 0, 0);
+	
+	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;
+}
+#startp span{
+	background: #CEF0A0;
+}
+#controlp1 span{
+	background: #BE6589;
+}
+#controlp2 span{
+	background: #68A83E;
+}
+#finalp span{
+	background: #DAF7F6;
+}
+#axisY{
+	position: absolute;
+	left: -32px;
+	top: 1px;
+	margin: 0px;
+}
+#axisY p{
+	width: 20px;
+	height: 39px;
+	margin: 0px 0px 0px 20px;
+	border-top: 1px solid #000;
+	border-right: 1px solid #000;
+}
+#axisY1{
+	width: 40px !important;
+	margin:  8px auto 0px 0px !important;
+	border-top: 1px solid #000 !important;
+	border-right: 1px solid #000 !important;
+}
+#axisY6{
+	width: 30px !important;
+	margin-left:  10px !important;
+}
+#axisY11{
+	width: 40px !important;
+	height: 0px;
+	margin-left: 0px !important;
+	border-right: 0px !important;
+	border-top: 1px solid #000 !important;
+}
+#axisX{
+	position: relative;
+	top: -1px;
+	left: 8px;
+}
+#axisX p{
+	display: inline-block;
+	width: 39px;
+	height: 20px;
+	margin: 0px 0px 20px;
+	border-left: 1px solid #000;
+	border-top: 1px solid #000;
+}
+#axisX1{
+	height: 40px !important;
+	margin: 0px !important;
+}
+#axisX6{
+	height: 30px !important;
+	margin-bottom: 10px !important;
+}
+#axisX11{
+	height: 40px !important;
+	width: 0px !important;
+	margin: 0px !important;
+}
+#X_5{
+	left: 190px;
+	top: 30px;
+}
+#X1{
+	left: 390px;
+	top: 30px;
+}
+#Y_5{
+	left: -14px;
+	top: 200px;
+}
+#Y1{
+	left: -11px;
+	top: 6px;
+}
+#o{
+	left: 15px;
+	top: 410px;
+	font-style: oblique;
+	font-size: 27px;
+	opacity: 0.73;
+}
+.scale{
+	position: absolute;
+	color: #4F6668;
+	font-family: arial;
+}
+#grid{
+	position: absolute;
+	width: 400px;
+	height: 400px;
+	top: 9px;
+	left: 9px;
+	z-index: 5;
+}
+.lineBox{
+	position: absolute;
+	width: 400px;
+	height: 400px;
+}
+#lineBoxOddHori{
+	margin-top: 20px;
+	height: 400px;
+}
+#lineBoxOddVer{
+	margin-left: 19px;
+	width: 400px;
+}
+.lineEvenHori{
+	margin: 0px 0px 39px 0px;
+	border-top: 1px dotted #123234;
+	border-bottom: 1px dotted #123234;
+	width: 400px;
+	height: 39px;
+}
+.lineEvenVer{
+	margin: 0px 0px 0px 39px;
+	border-left: 1px dotted #123234;
+	border-right: 1px dotted #123234;
+	float: left;
+	width: 39px;
+	height: 400px;
+}
+.lineOddHori{
+	margin: 0px 0px 39px 0px;
+	border-top: 1px dotted rgba(18, 50, 52, 0.15);
+	border-bottom: 1px dotted rgba(18, 50, 52, 0.15);
+	width: 400px;
+	height: 39px;
+}
+.lineOddVer{
+	margin: 0px 39px 0px 0px;
+	border-left: 1px dotted rgba(18, 50, 52, 0.15);
+	border-right: 1px dotted rgba(18, 50, 52, 0.15);
+	float: left;
+	width: 39px;
+	height: 400px;
+}
+#txtChange{
+	position: absolute;
+	top: -16px;
+	left: -4px;
+	font-weight: 600;
+	font-family: arial;
+}
+#txtTime{
+	position: absolute;
+	top: -3px;
+	left: 407px;
+	font-weight: 900;
+	font-family: arial;
+}
+#build{
+	border-top: 1px solid rgba(1, 2, 3, 0);
+	width: 600px;
+}
+#pointsPosition{
+	float: right;
+	text-align: center;
+	padding: 0px;
+	border: 0px;
+	border-radius: 20px;
+	width: 165px;
+	height: 20px;
+	outline: none;
+	box-shadow: 0px 1px 3px 0px #BABABA inset;
+	background: #F8F9F9;
+	font: 15px Arial,'Helvetica Neue',Helvetica,sans-serif;
+}
+::-ms-clear{
+	display: none;
+}
+::selection{
+	background: rgba(255, 255, 255, 0);
+	color: #FFFFFF;
+}
+#moveShow{
+	width: 85%;
+	padding-left: 15%;
+}
+#moveShow>div{
+	display: block;
+	position: relative;
+	width: 1000px;
+	height: 60px;
+	margin: 0px;
+	background: #EEE;
+	border-radius: 5px;
+	box-shadow: 0px 1px 6px -1px #C2C2C2 inset;
+	border-top: 1px solid rgba(0,0,0,0);
+	padding: 1px 0px 0px 1px;
+}
+.chunk{
+	width: 100px;
+	height: 59px;
+	background: rgb(69, 140, 171);
+	border-radius: 5px;
+	margin-left: 0px;
+}
+#start{
+	position: absolute;
+	left: -80px;
+	top: 10px;
+	height: 40px;
+	width: 60px;
+}
+footer{
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+}
+.caution{
+	background-color: yellow;
+	text-align: center;
+	margin: 0px;
+}
+</style>
+</head>
+<body>
+<div id = 'build'>
+	<input id = 'pointsPosition' size = '15'></input>
+	<div id="box">
+		<div id="startp" class = 'point'>
+			<span></span>
+		</div>
+		<div id="finalp" class = 'point'>
+			<span></span>
+		</div>
+		<div id="controlp1" class = 'point' style= "top: 30px; left: 30px;">
+			<span></span>
+		</div>
+		<div id="controlp2" class = 'point' style= "top: 40px; left: 40px;">
+			<span></span>
+		</div>
+		<canvas id="canvas" width= '400px' height= '400px'>
+		</canvas>
+		<div id= 'axisY'>
+			<p id= 'axisY1'>
+			</p><p>
+			</p><p>
+			</p><p>
+			</p><p>
+			</p><p id= 'axisY6'>
+			</p><p>
+			</p><p>
+			</p><p>
+			</p><p>
+			</p><p id= 'axisY11'>
+				<span id = 'o' class = 'scale'>o</span>
+			</p>
+			<span id = 'Y_5' class = 'scale'>0.5</span>
+			<span id = 'Y1' class = 'scale'>1</span>
+			<span id = 'txtChange'>change</span>
+		</div>
+		<div id= 'axisX'>
+			<p id= 'axisX1'>
+			</p><p>
+			</p><p>
+			</p><p>
+			</p><p>
+			</p><p id= 'axisX6'>
+			</p><p>
+			</p><p>
+			</p><p>
+			</p><p>
+			</p><p id= 'axisX11'>
+			</p>
+			<span id = 'X_5' class = 'scale'>0.5</span>
+			<span id = 'X1' class = 'scale'>1</span>
+			<span id = 'txtTime'>time</span>
+		</div>
+		<div id = 'grid'>
+			<div class = 'lineBox'>
+			</div>
+			<div class = 'lineBox'>
+			</div>
+			<div class = 'lineBox' id = 'lineBoxOddHori' >
+			</div>
+			<div class = 'lineBox' id = 'lineBoxOddVer' >
+			</div>
+		</div>
+	</div>
+</div>
+<div id = 'moveShow'>
+	<div>
+		<div class = 'chunk'></div>
+		<button id = 'start' type = 'button'>start</button>
+	</div>
+</div>
+<footer>
+	<p class = 'caution'>注意：这是一个已经被我废弃的项目。（因为大多数现代浏览器的Developer Tools都能更好地提供此功能）</p>
+	<p class = 'caution'>此页面功能：拖动网格线中的控制点，得到三次贝塞尔参数值，下面的小方块提供简单的测试</p>
+</footer>
+<script src = 'animate.js'></script>
+<script>
+(function(){
+	var i = 0,
+		points = {
+			'0': document.getElementById('startp'),		
+			'1': document.getElementById('controlp1'),		
+			'2': document.getElementById('controlp2'),		
+			'3': document.getElementById('finalp'),		
+		},
+		body = document.getElementsByTagName('body')[0],
+		decimalRound = function( num, digits ){
+			return Math.round( num*Math.pow( 10, digits ) ) / Math.pow( 10, digits );
+		},
+		draw = (function(){
+			var ctx = document.getElementById('canvas').getContext('2d');
+			return function( x1, y1, x2, y2 ){
+				ctx.clearRect(0,0,400,400),
+				ctx.beginPath();
+				ctx.moveTo(0, 400);
+				ctx.bezierCurveTo(x1, y1, x2, y2, 400, 0);
+				ctx.strokeStyle = '#48590B';
+				ctx.lineWidth = 4;
+				ctx.stroke();
+				ctx.beginPath();
+				ctx.moveTo(0, 400);
+				ctx.lineTo( x1, y1 );
+				ctx.strokeStyle = '#843857';
+				ctx.lineWidth = 1.2;
+				ctx.stroke();
+				ctx.beginPath();
+				ctx.moveTo(400, 0);
+				ctx.lineTo( x2, y2 );
+				ctx.strokeStyle = '#789962';
+				ctx.lineWidth = 1.2;
+				ctx.stroke();
+			};
+		}()),
+		handlerPointDown = function(event){
+			event.stopPropagation();
+			event.preventDefault();
+			event.currentTarget.style.borderColor = 'rgba(36, 139, 64, 0.27)';
+			document.addEventListener('mouseup',handlerPointUpF(event.currentTarget),false);
+			document.addEventListener('mousemove', handlerPointMoveF(event.currentTarget), false);
+		},
+		handlerPointUp,
+		handlerPointUpF = function(point){
+			return handlerPointUp = function(event){
+				event.stopPropagation();
+				point.style.borderColor = 'rgba(36, 139, 64, 0)';
+				document.removeEventListener('mousemove', handlerPointMove, false);
+				document.removeEventListener('mouseup',handlerPointUp,false);
+				body.style.cursor = 'default';
+				document.getElementById('pointsPosition').select();
+				document.getElementById('pointsPosition').style.background = '#328efe';
+			};
+		},
+		handlerPointMove,
+		handlerPointMoveF = function(point){
+			var left, top, x1, y1, x2, y2,
+				leftCanvas = document.getElementById('box').offsetLeft,
+				pointsPosition = document.getElementById('pointsPosition');
+			return handlerPointMove = function(event){
+				event.preventDefault();
+				event.stopPropagation();
+				body.style.cursor = 'pointer';
+				left = event.pageX - leftCanvas - 8;
+				top = event.pageY - 35;
+				point.style.left = ( ( left < 0 && '0' ) || ( left > 400 && '400' ) || left ) + 'px';
+				point.style.top = ( ( top < 0 && '0' ) || ( top > 400 && '400' ) || top ) + 'px';
+				if( point.id === 'controlp1' || point.id === 'controlp2' ){
+					x1 = parseFloat( points[1].style.left );
+					y1 = parseFloat( points[1].style.top );
+					x2 = parseFloat( points[2].style.left );
+					y2 = parseFloat( points[2].style.top );
+					draw( x1, y1, x2, y2 );
+					pointsPosition.value = decimalRound( x1/400, 2 ) + ', ' + decimalRound( (400 - y1)/400, 2 ) + ', ' + decimalRound( x2/400, 2 ) + ', '+ decimalRound( (400 - y2)/400, 2 );
+				}
+			};
+		},
+		initDraw = function(){
+			var lineBoxEvenHori = document.getElementById('grid').getElementsByTagName('div')[1];
+			var lineBoxEvenVer = document.getElementById('grid').getElementsByTagName('div')[0];
+			var lineBoxOddHori = document.getElementById('lineBoxOddHori');
+			var lineBoxOddVer = document.getElementById('lineBoxOddVer');
+			var lineEvenHori, lineEvenVer, lineOddHori, lineOddVer;
+			for(i = 0; i < 5; i++){
+				lineEvenHori = document.createElement('div');
+				lineEvenVer = document.createElement('div');
+				lineOddHori = document.createElement('div');
+				lineOddVer = document.createElement('div');
+				lineEvenHori.classList.add('lineEvenHori');
+				lineEvenVer.classList.add('lineEvenVer');
+				lineOddHori.classList.add('lineOddHori');
+				lineOddVer.classList.add('lineOddVer');
+				lineBoxEvenHori.appendChild(lineEvenHori);
+				lineBoxEvenVer.appendChild(lineEvenVer);
+				lineBoxOddHori.appendChild(lineOddHori);
+				lineBoxOddVer.appendChild(lineOddVer);				
+			}
+			var x1 = 369,
+				y1 = 390,
+				x2 = 162,
+				y2 = 114;
+			points[0].style.left = '0px';
+			points[0].style.top = '400px';
+			points[1].style.left = x1 + 'px';
+			points[1].style.top = y1 + 'px';
+			points[2].style.left = x2 + 'px';
+			points[2].style.top = y2 + 'px';
+			points[3].style.left = '400px';
+			points[3].style.top ='0px';
+			draw( x1, y1, x2, y2 );
+			document.getElementById('pointsPosition').value = Math.decimalRound( x1/400, 2 ) + ', ' + Math.decimalRound( (400 - y1)/400, 2 ) + ', ' + Math.decimalRound( x2/400, 2 ) + ', '+ Math.decimalRound( (400 - y2)/400, 2 );
+		};
+	Math.decimalRound = decimalRound;
+	for(i = 0; i < 4; i++){
+		points[i].addEventListener('mousedown',handlerPointDown,false);
+	}
+	document.getElementById('pointsPosition').addEventListener('blur', function(){
+		event.currentTarget.style.background = '';
+	}, false);
+	initDraw();
+}());
+</script>
+<script>
+(function(){
+	var chunks = document.getElementById('moveShow').getElementsByClassName('chunk');
+	document.getElementById('start').addEventListener('click', func, false);
+	function func(){
+		var value = document.getElementById('pointsPosition').value.split(",");
+		animate( chunks[0], 'marginLeft', '899px', 1000, value, callback);
+	}
+	function callback(){
+		chunks[0].style.marginLeft = '0px';
+	}
+}());
+</script>
+</body>
+</html>
